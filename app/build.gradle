@@ -19,6 +19,8 @@ android {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
+
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -34,6 +36,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:multidex:1.0.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
     implementation 'androidx.core:core-ktx:1.1.0-alpha04'

@@ -1,14 +1,14 @@
 package com.andrewtse.kfgit;
 
-import android.app.Application;
-
 import com.alibaba.android.arouter.launcher.ARouter;
+
+import androidx.multidex.MultiDexApplication;
 
 /**
  * @author xk
  * @date 2019/2/17
  */
-public class KFGitApplication extends Application {
+public class KFGitApplication extends MultiDexApplication {
 
     @Override
     public void onCreate() {
