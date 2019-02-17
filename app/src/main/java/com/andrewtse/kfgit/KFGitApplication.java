@@ -3,7 +3,7 @@ package com.andrewtse.kfgit;
 import android.content.Context;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.andrewtse.kfgit.di.component.ApplicationComponent;
+import com.andrewtse.kfgit.di.component.IApplicationComponent;
 import com.andrewtse.kfgit.di.component.DaggerApplicationComponent;
 import com.andrewtse.kfgit.di.module.ApplicationModule;
 
@@ -15,7 +15,7 @@ import androidx.multidex.MultiDexApplication;
  */
 public class KFGitApplication extends MultiDexApplication {
 
-    ApplicationComponent mApplicationComponent;
+    IApplicationComponent mApplicationComponent;
 
     @Override
     public void onCreate() {
@@ -33,14 +33,14 @@ public class KFGitApplication extends MultiDexApplication {
         return (KFGitApplication) context.getApplicationContext();
     }
 
-    public ApplicationComponent getComponent() {
+    public IApplicationComponent getComponent() {
         if (mApplicationComponent == null) {
             mApplicationComponent = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
         }
         return mApplicationComponent;
     }
 
-    public void setApplicationComponent(ApplicationComponent applicationComponent) {
+    public void setApplicationComponent(IApplicationComponent applicationComponent) {
         mApplicationComponent = applicationComponent;
     }
 }

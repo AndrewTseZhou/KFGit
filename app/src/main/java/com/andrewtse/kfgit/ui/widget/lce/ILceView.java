@@ -1,6 +1,6 @@
 package com.andrewtse.kfgit.ui.widget.lce;
 
-import com.andrewtse.kfgit.contract.BaseContract;
+import com.andrewtse.kfgit.contract.IBaseContract;
 
 import androidx.annotation.UiThread;
 
@@ -9,7 +9,7 @@ import androidx.annotation.UiThread;
  * @date 2019/2/17
  * Loading, Content, Error的View
  */
-public interface LceView<M> extends BaseContract.BaseView {
+public interface ILceView<M> extends IBaseContract.IBaseView {
 
     @UiThread
     public void showLoading();

@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.andrewtse.kfgit.di.HasComponent;
+import com.andrewtse.kfgit.di.IHasComponent;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -80,6 +80,6 @@ public class BaseFragment extends Fragment {
 
     @SuppressWarnings("unchecked")
     protected <C> C getComponent(Class<C> componentType) {
-        return componentType.cast(((HasComponent<C>) getActivity()).getComponent());
+        return componentType.cast(((IHasComponent<C>) getActivity()).getComponent());
     }
 }
