@@ -22,6 +22,7 @@ import com.andrewtse.kfgit.di.module.UserModule;
 import com.andrewtse.kfgit.model.User;
 import com.andrewtse.kfgit.presenter.LoginPresenter;
 import com.andrewtse.kfgit.ui.base.BaseActivity;
+import com.andrewtse.kfgit.ui.module.main.MainActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
@@ -103,6 +104,9 @@ public class LoginActivity extends BaseActivity implements ILoginContract.ILogin
     public void loginSuccess(User user) {
         UserPref.saveLoginUser(this, user);
         Log.d(TAG, "loginSuccess: 登录成功");
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
