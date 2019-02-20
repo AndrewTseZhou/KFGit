@@ -12,7 +12,7 @@ public class FragmentsDataGenerator {
         Fragment[] fragments = new Fragment[4];
         fragments[0] = TrendingFragment.newInstance();
         fragments[1] = SearchFragment.newInstance();
-        fragments[2] = StarsFragment.newInstance();
+        fragments[2] = StarredFragment.newInstance();
         fragments[3] = ProfileFragment.newInstance();
         return fragments;
     }

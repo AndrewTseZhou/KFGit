@@ -7,14 +7,10 @@ import android.util.Log;
 import com.andrewtse.kfgit.data.net.client.base.BaseOkHttpClient;
 import com.andrewtse.kfgit.data.net.client.base.BaseRetrofit;
 
-import java.io.IOException;
-
 import javax.inject.Inject;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * @author xk
