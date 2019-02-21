@@ -11,4 +11,8 @@
     <string name="stars">关注</string>
     <string name="profile">我的</string>
     <string name="load_failed">加载失败</string>
+    <string name="repo_count">Repositories</string>
+    <string name="following_count">Following</string>
+    <string name="followers_count">Followers</string>
+    <string name="joined_at">Joined at</string>
 </resources>
