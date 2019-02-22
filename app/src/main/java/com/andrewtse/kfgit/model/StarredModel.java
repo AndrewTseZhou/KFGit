@@ -819,7 +819,7 @@ public class StarredModel implements IStarredContract.IStarredModel, Parcelable 
         this.has_wiki = in.readByte() != 0;
         this.has_pages = in.readByte() != 0;
         this.forks_count = in.readInt();
-        this.mirror_url = in.readParcelable(Object.class.getClassLoader());
+        this.mirror_url = in.readString();
         this.archived = in.readByte() != 0;
         this.open_issues_count = in.readInt();
         this.license = in.readParcelable(Object.class.getClassLoader());
