@@ -15,4 +15,7 @@
     <string name="following_count">Following</string>
     <string name="followers_count">Followers</string>
     <string name="joined_at">Joined at</string>
+    <string name="click_to_search">点击搜索</string>
+    <string name="loadmore_end">已经加载完了……</string>
+    <string name="search_type">搜索类型:</string>
 </resources>

@@ -31,7 +31,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".WelcomeActivity"
+        <activity
+            android:name=".WelcomeActivity"
             android:theme="@style/WelcomeActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,7 +43,10 @@
         <activity
             android:name=".ui.module.account.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".ui.module.main.MainActivity" />
+        <activity
+            android:name=".ui.module.main.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
     </application>
 
 </manifest>
