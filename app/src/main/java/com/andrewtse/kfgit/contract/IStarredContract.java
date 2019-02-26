@@ -1,6 +1,6 @@
 package com.andrewtse.kfgit.contract;
 
-import com.andrewtse.kfgit.ui.entity.StarredItem;
+import com.andrewtse.kfgit.model.StarredModel;
 import com.andrewtse.kfgit.ui.widget.lce.ILceView;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public interface IStarredContract {
     interface IStarredModel extends IBaseContract.IBaseModel {
     }
 
-    interface IStarredView extends ILceView<List<StarredItem>> {
+    interface IStarredView extends ILceView<List<StarredModel>> {
     }
 
     interface IStarredPresenter extends IBaseContract.IBasePresenter<IStarredView> {

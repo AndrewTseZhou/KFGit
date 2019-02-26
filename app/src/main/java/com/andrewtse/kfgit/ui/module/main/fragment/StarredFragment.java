@@ -15,10 +15,10 @@ import com.andrewtse.kfgit.di.component.DaggerIStarredComponent;
 import com.andrewtse.kfgit.di.component.IStarredComponent;
 import com.andrewtse.kfgit.di.module.ActivityModule;
 import com.andrewtse.kfgit.di.module.StarredModule;
+import com.andrewtse.kfgit.model.StarredModel;
 import com.andrewtse.kfgit.presenter.StarredPresenter;
 import com.andrewtse.kfgit.ui.adapter.StarredFragmentAdapter;
 import com.andrewtse.kfgit.ui.base.BaseFragment;
-import com.andrewtse.kfgit.ui.entity.StarredItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.List;
@@ -133,7 +133,7 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
     }
 
     @Override
-    public void showContent(List<StarredItem> data) {
+    public void showContent(List<StarredModel> data) {
         if (data != null) {
             if (mIsLoadingMore && mAdapter.getData().size() > 0) {
                 mAdapter.addData(data);

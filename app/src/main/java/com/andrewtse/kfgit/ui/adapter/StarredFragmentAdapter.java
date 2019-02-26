@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.andrewtse.kfgit.R;
-import com.andrewtse.kfgit.ui.entity.StarredItem;
+import com.andrewtse.kfgit.model.StarredModel;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -22,25 +22,25 @@ import androidx.annotation.Nullable;
  * @author xk
  * @date 2019/2/19
  */
-public class StarredFragmentAdapter extends BaseQuickAdapter<StarredItem, StarredFragmentAdapter.StarredViewHolder> {
+public class StarredFragmentAdapter extends BaseQuickAdapter<StarredModel, StarredFragmentAdapter.StarredViewHolder> {
 
     public StarredFragmentAdapter(int layoutResId) {
         this(layoutResId, null);
     }
 
-    public StarredFragmentAdapter(@Nullable List<StarredItem> data) {
+    public StarredFragmentAdapter(@Nullable List<StarredModel> data) {
         this(-1, data);
     }
 
-    public StarredFragmentAdapter(int layoutResId, @Nullable List<StarredItem> data) {
+    public StarredFragmentAdapter(int layoutResId, @Nullable List<StarredModel> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(StarredViewHolder holder, StarredItem item) {
+    protected void convert(StarredViewHolder holder, StarredModel item) {
         Glide.with(mContext)
              .asBitmap()
-             .load(item.getAvatarUrl())
+             .load(item.getOwner().getAvatarUrl())
              .diskCacheStrategy(DiskCacheStrategy.ALL)
              .into((ImageView) holder.getView(R.id.iv_avatar));
         holder.setText(R.id.tv_full_name, item.getFullName());
