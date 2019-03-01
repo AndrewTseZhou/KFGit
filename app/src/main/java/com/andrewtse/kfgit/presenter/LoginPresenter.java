@@ -63,4 +63,36 @@ public class LoginPresenter extends BasePresenterImpl<ILoginContract.ILoginView>
                     }
                 });
     }
+
+    public void getUserInfo(String accessToken) {
+        mUserApi.getUserInfo(accessToken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(disposable -> getBaseView().showLoading())
+                .doOnTerminate(() -> getBaseView().dismissLoading())
+                .subscribe(new Observer<User>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.d(TAG, "onSubscribe: " + d);
+                        mCompositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(User user) {
+                        Log.d(TAG, "onNext: " + user.toString());
+                        getBaseView().loginSuccess(user);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "onError: " + e.toString());
+                        getBaseView().error(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d(TAG, "onComplete");
+                    }
+                });
+    }
 }

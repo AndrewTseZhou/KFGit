@@ -12,4 +12,6 @@ import io.reactivex.Observable;
 public interface UserApi {
 
     Observable<User> login(String userName, String password);
+
+    Observable<User> getUserInfo(String accessToken);
 }

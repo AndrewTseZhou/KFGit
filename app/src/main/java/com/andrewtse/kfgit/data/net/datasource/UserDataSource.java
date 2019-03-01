@@ -51,4 +51,10 @@ public class UserDataSource implements UserApi {
                                 return userInterface.getUserInfo(token);
                             });
     }
+
+    @Override
+    public Observable<User> getUserInfo(String accessToken) {
+        UserInterface userInterface = mAuthRetrofit.get().create(UserInterface.class);
+        return userInterface.getUserInfo(accessToken);
+    }
 }
