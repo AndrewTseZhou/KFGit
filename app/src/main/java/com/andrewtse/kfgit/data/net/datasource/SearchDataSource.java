@@ -32,7 +32,6 @@ public class SearchDataSource implements SearchApi {
 
     @Override
     public Observable<SearchResp> getSearchResult(String q, int page, int perPage, int type) {
-        mSearchRetrofit.setQueryParams(q, page, perPage);
         SearchInterface searchInterface = mSearchRetrofit.get().create(SearchInterface.class);
         if (type == SEARCH_REPOS) {
             return searchInterface.getSearchRepoResult(q, page, perPage);

@@ -33,7 +33,7 @@ public class StarredRetrofit extends BaseRetrofit {
         return new StarredHttpClient(mToken, mPage).get();
     }
 
-    private class StarredHttpClient extends BaseOkHttpClient {
+    private class StarredHttpClient extends CacheHttpClient {
 
         private String mToken;
         private int mPage;

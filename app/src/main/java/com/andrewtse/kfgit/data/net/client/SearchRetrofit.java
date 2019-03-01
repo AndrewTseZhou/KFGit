@@ -1,6 +1,5 @@
 package com.andrewtse.kfgit.data.net.client;
 
-import com.andrewtse.kfgit.data.net.client.base.BaseOkHttpClient;
 import com.andrewtse.kfgit.data.net.client.base.BaseRetrofit;
 
 import javax.inject.Inject;
@@ -13,40 +12,15 @@ import okhttp3.OkHttpClient;
  */
 public class SearchRetrofit extends BaseRetrofit {
 
-    private String mQueryParams;
-    private int mPage;
-    private int mPerPage;
+    CacheHttpClient mCacheHttpClient;
 
     @Inject
-    public SearchRetrofit() {
-    }
-
-    public void setQueryParams(String q, int page, int perPage) {
-        mQueryParams = q;
-        mPage = page;
-        mPerPage = perPage;
+    public SearchRetrofit(CacheHttpClient client) {
+        mCacheHttpClient = client;
     }
 
     @Override
     protected OkHttpClient getHttpClient() {
-        return new SearchHttpClient(mQueryParams, mPage, mPerPage).get();
-    }
-
-    private class SearchHttpClient extends BaseOkHttpClient {
-
-        private String mQueryParams;
-        private int mPage;
-        private int mPerPage;
-
-        public SearchHttpClient(String queryParams, int page, int perPage) {
-            mQueryParams = queryParams;
-            mPage = page;
-            mPerPage = perPage;
-        }
-
-        @Override
-        protected OkHttpClient.Builder customize(OkHttpClient.Builder builder) {
-            return builder;
-        }
+        return mCacheHttpClient.get();
     }
 }

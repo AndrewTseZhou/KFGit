@@ -28,7 +28,6 @@ public class TrendingDataSource implements TrendingApi {
 
     @Override
     public Observable<String> getTrendingRepo(String languageType, String q) {
-        mTrendingRetrofit.setQueryParams(languageType, q);
         TrendingInterface trendingInterface = mTrendingRetrofit.get().create(TrendingInterface.class);
         return trendingInterface.getTrendingRepo(languageType, q);
     }
