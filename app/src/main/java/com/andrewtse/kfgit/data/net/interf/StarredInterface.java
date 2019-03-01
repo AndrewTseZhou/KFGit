@@ -15,5 +15,5 @@ import retrofit2.http.Query;
 public interface StarredInterface {
 
     @GET("/user/starred")
-    Observable<List<StarredModel>> getStarred(@Query("page") int page);
+    Observable<List<StarredModel>> getStarred(@Query("page") int page, @Query("per_page") int perPage);
 }

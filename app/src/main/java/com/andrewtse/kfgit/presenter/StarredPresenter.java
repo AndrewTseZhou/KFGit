@@ -34,8 +34,8 @@ public class StarredPresenter extends BasePresenterImpl<IStarredContract.IStarre
         mStarredApi = starredApi;
     }
 
-    public void loadStarsRepo(String token, int page) {
-        mStarredApi.loadStarred(token, page)
+    public void loadStarsRepo(String token, int page, int perPage) {
+        mStarredApi.loadStarred(token, page, perPage)
                    .subscribeOn(Schedulers.io())
                    .observeOn(AndroidSchedulers.mainThread())
                    .doOnSubscribe(disposable -> getBaseView().showLoading())

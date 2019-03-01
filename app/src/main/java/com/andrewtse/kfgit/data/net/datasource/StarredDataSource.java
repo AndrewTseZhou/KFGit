@@ -30,9 +30,9 @@ public class StarredDataSource implements StarredApi {
     }
 
     @Override
-    public Observable<List<StarredModel>> loadStarred(String token, int page) {
+    public Observable<List<StarredModel>> loadStarred(String token, int page, int perPage) {
         mStarredRetrofit.setQueryParams(token, page);
         StarredInterface starredInterface = mStarredRetrofit.get().create(StarredInterface.class);
-        return starredInterface.getStarred(page);
+        return starredInterface.getStarred(page, perPage);
     }
 }

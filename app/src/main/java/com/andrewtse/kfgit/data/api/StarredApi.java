@@ -13,5 +13,5 @@ import io.reactivex.Observable;
  */
 public interface StarredApi {
 
-    Observable<List<StarredModel>> loadStarred(String token, int page);
+    Observable<List<StarredModel>> loadStarred(String token, int page, int perPage);
 }

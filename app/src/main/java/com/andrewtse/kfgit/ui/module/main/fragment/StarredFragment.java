@@ -50,6 +50,7 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
 
     private int mPage = 1;
     private boolean mIsLoadingMore = false;
+    private final int mPerPage = 10;
 
     public static StarredFragment newInstance() {
         return new StarredFragment();
@@ -77,7 +78,7 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mStarsPresenter.loadStarsRepo(UserPref.getLoginToken(getActivity()), mPage++);
+        mStarsPresenter.loadStarsRepo(UserPref.getLoginToken(getActivity()), mPage++, mPerPage);
     }
 
     @Override
@@ -90,7 +91,7 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
         mRefreshLayout.setOnRefreshListener(() -> {
             mAdapter.setEnableLoadMore(false);
             mPage = 1;
-            mStarsPresenter.loadStarsRepo(UserPref.getLoginToken(getActivity()), mPage++);
+            mStarsPresenter.loadStarsRepo(UserPref.getLoginToken(getActivity()), mPage++, mPerPage);
         });
         mRvStarsList.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
@@ -104,7 +105,7 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
         mAdapter.setEnableLoadMore(true);
         mAdapter.setOnLoadMoreListener(() -> {
             mAdapter.setUpFetchEnable(false);
-            mStarsPresenter.loadStarsRepo(UserPref.getLoginToken(getActivity()), mPage++);
+            mStarsPresenter.loadStarsRepo(UserPref.getLoginToken(getActivity()), mPage++, mPerPage);
             mIsLoadingMore = true;
         }, mRvStarsList);
         mAdapter.disableLoadMoreIfNotFullPage();
