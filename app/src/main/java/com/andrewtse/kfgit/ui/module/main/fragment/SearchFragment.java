@@ -180,7 +180,7 @@ public class SearchFragment extends BaseFragment implements ISearchContract.ISea
 
     @Override
     public void showContent(List<SearchModel> data) {
-        if (data != null) {
+        if (data != null && data.size() > 0) {
             if (mIsLoadingMore && mAdapter.getData().size() > 0) {
                 mAdapter.addData(data);
                 mAdapter.loadMoreComplete();

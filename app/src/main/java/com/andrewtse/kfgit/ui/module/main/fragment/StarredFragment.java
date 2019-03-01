@@ -134,7 +134,7 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
 
     @Override
     public void showContent(List<StarredModel> data) {
-        if (data != null) {
+        if (data != null && data.size() > 0) {
             if (mIsLoadingMore && mAdapter.getData().size() > 0) {
                 mAdapter.addData(data);
                 mAdapter.loadMoreComplete();
