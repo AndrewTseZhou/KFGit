@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.andrewtse.kfgit.KFGitApplication;
 import com.andrewtse.kfgit.R;
 import com.andrewtse.kfgit.contract.ITrendingContract;
+import com.andrewtse.kfgit.data.pref.UserPref;
 import com.andrewtse.kfgit.di.IHasComponent;
 import com.andrewtse.kfgit.di.component.DaggerITrendingComponent;
 import com.andrewtse.kfgit.di.component.ITrendingComponent;
@@ -19,6 +20,8 @@ import com.andrewtse.kfgit.presenter.TrendingPresenter;
 import com.andrewtse.kfgit.ui.adapter.TrendingFragmentAdapter;
 import com.andrewtse.kfgit.ui.base.BaseFragment;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.ethanhua.skeleton.RecyclerViewSkeletonScreen;
+import com.ethanhua.skeleton.Skeleton;
 
 import java.util.List;
 
@@ -44,6 +47,7 @@ public class TrendingFragment extends BaseFragment implements ITrendingContract.
 
     private TrendingFragmentAdapter mAdapter;
     private boolean mIsLoadingMore = false;
+    private RecyclerViewSkeletonScreen mSkeletonScreen;
 
     @Inject
     TrendingPresenter mTrendingPresenter;
@@ -75,6 +79,13 @@ public class TrendingFragment extends BaseFragment implements ITrendingContract.
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mTrendingPresenter.getTrendingRepo("all", "weekly");
+        mSkeletonScreen = Skeleton.bind(mRvTrendingList)
+                                  .adapter(mAdapter)
+                                  .shimmer(true)
+                                  .frozen(false)
+                                  .color(R.color.dark_transparent)
+                                  .load(R.layout.item_skeleton_repo)
+                                  .show();
     }
 
     @Override
@@ -146,6 +157,7 @@ public class TrendingFragment extends BaseFragment implements ITrendingContract.
 
         mAdapter.setUpFetchEnable(true);
         mAdapter.setEnableLoadMore(true);
+        mSkeletonScreen.hide();
     }
 
     @Override

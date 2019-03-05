@@ -1,5 +1,6 @@
 package com.andrewtse.kfgit.ui.module.main.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,8 @@ import com.andrewtse.kfgit.presenter.StarredPresenter;
 import com.andrewtse.kfgit.ui.adapter.StarredFragmentAdapter;
 import com.andrewtse.kfgit.ui.base.BaseFragment;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.ethanhua.skeleton.RecyclerViewSkeletonScreen;
+import com.ethanhua.skeleton.Skeleton;
 
 import java.util.List;
 
@@ -51,6 +54,7 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
     private int mPage = 1;
     private boolean mIsLoadingMore = false;
     private final int mPerPage = 10;
+    private RecyclerViewSkeletonScreen mSkeletonScreen;
 
     public static StarredFragment newInstance() {
         return new StarredFragment();
@@ -79,6 +83,13 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mStarsPresenter.loadStarsRepo(UserPref.getLoginToken(getActivity()), mPage++, mPerPage);
+        mSkeletonScreen = Skeleton.bind(mRvStarsList)
+                                  .adapter(mAdapter)
+                                  .shimmer(true)
+                                  .frozen(false)
+                                  .color(R.color.dark_transparent)
+                                  .load(R.layout.item_skeleton_repo)
+                                  .show();
     }
 
     @Override
@@ -154,6 +165,7 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
 
         mAdapter.setUpFetchEnable(true);
         mAdapter.setEnableLoadMore(true);
+        mSkeletonScreen.hide();
     }
 
     @Override
