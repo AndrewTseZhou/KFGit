@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.andrewtse.kfgit.data.api.SearchApi;
 import com.andrewtse.kfgit.data.net.client.SearchRetrofit;
-import com.andrewtse.kfgit.data.net.interf.SearchInterface;
+import com.andrewtse.kfgit.data.net.interf.ReposInterface;
 import com.andrewtse.kfgit.data.net.response.SearchResp;
 
 import javax.inject.Inject;
@@ -32,7 +32,7 @@ public class SearchDataSource implements SearchApi {
 
     @Override
     public Observable<SearchResp> getSearchResult(String q, int page, int perPage, int type) {
-        SearchInterface searchInterface = mSearchRetrofit.get().create(SearchInterface.class);
+        ReposInterface searchInterface = mSearchRetrofit.get().create(ReposInterface.class);
         if (type == SEARCH_REPOS) {
             return searchInterface.getSearchRepoResult(q, page, perPage);
         } else {

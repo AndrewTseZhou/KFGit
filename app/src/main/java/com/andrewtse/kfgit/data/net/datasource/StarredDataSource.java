@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.andrewtse.kfgit.data.api.StarredApi;
 import com.andrewtse.kfgit.data.net.client.StarredRetrofit;
-import com.andrewtse.kfgit.data.net.interf.StarredInterface;
+import com.andrewtse.kfgit.data.net.interf.ReposInterface;
 import com.andrewtse.kfgit.model.StarredModel;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class StarredDataSource implements StarredApi {
     @Override
     public Observable<List<StarredModel>> loadStarred(String token, int page, int perPage) {
         mStarredRetrofit.setQueryParams(token, page);
-        StarredInterface starredInterface = mStarredRetrofit.get().create(StarredInterface.class);
+        ReposInterface starredInterface = mStarredRetrofit.get().create(ReposInterface.class);
         return starredInterface.getStarred(page, perPage);
     }
 }

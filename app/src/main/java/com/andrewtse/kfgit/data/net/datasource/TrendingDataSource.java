@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.andrewtse.kfgit.data.api.TrendingApi;
 import com.andrewtse.kfgit.data.net.client.TrendingRetrofit;
-import com.andrewtse.kfgit.data.net.interf.TrendingInterface;
+import com.andrewtse.kfgit.data.net.interf.ReposInterface;
 
 import javax.inject.Inject;
 
@@ -28,7 +28,7 @@ public class TrendingDataSource implements TrendingApi {
 
     @Override
     public Observable<String> getTrendingRepo(String languageType, String q) {
-        TrendingInterface trendingInterface = mTrendingRetrofit.get().create(TrendingInterface.class);
+        ReposInterface trendingInterface = mTrendingRetrofit.get().create(ReposInterface.class);
         return trendingInterface.getTrendingRepo(languageType, q);
     }
 }
