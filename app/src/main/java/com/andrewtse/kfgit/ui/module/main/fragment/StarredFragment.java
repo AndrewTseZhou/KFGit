@@ -153,6 +153,7 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
                 mIsLoadingMore = false;
             } else {
                 mAdapter.setNewData(data);
+                mSkeletonScreen.hide();
             }
         } else {
             if (mIsLoadingMore) {
@@ -165,7 +166,6 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
 
         mAdapter.setUpFetchEnable(true);
         mAdapter.setEnableLoadMore(true);
-        mSkeletonScreen.hide();
     }
 
     @Override

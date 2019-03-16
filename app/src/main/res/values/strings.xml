@@ -18,4 +18,19 @@
     <string name="click_to_search">点击搜索</string>
     <string name="loadmore_end">已经加载完了……</string>
     <string name="search_type">搜索类型:</string>
+
+    <string-array name="spinner_since">
+        <item>今日</item>
+        <item>本周</item>
+        <item>本月</item>
+    </string-array>
+
+    <string-array name="spinner_language_type">
+        <item>All</item>
+        <item>C</item>
+        <item>Flutter</item>
+        <item>Java</item>
+        <item>Kotlin</item>
+        <item>Python</item>
+    </string-array>
 </resources>

@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.andrewtse.kfgit.KFGitApplication;
 import com.andrewtse.kfgit.R;
 import com.andrewtse.kfgit.contract.ITrendingContract;
-import com.andrewtse.kfgit.data.pref.UserPref;
 import com.andrewtse.kfgit.di.IHasComponent;
 import com.andrewtse.kfgit.di.component.DaggerITrendingComponent;
 import com.andrewtse.kfgit.di.component.ITrendingComponent;
@@ -28,11 +28,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemSelected;
 
 /**
  * @author xk
@@ -44,10 +46,20 @@ public class TrendingFragment extends BaseFragment implements ITrendingContract.
     RecyclerView mRvTrendingList;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout mRefreshLayout;
+    @BindView(R.id.spi_since)
+    AppCompatSpinner mSpiSince;
+    @BindView(R.id.spi_language_type)
+    AppCompatSpinner mSpiLanguageType;
 
     private TrendingFragmentAdapter mAdapter;
     private boolean mIsLoadingMore = false;
     private RecyclerViewSkeletonScreen mSkeletonScreen;
+    private boolean mIsFirst;
+
+    private String[] mLanguageTypeArray;
+    private String[] mSinceArray;
+    private String mLanguageType;
+    private String mSince;
 
     @Inject
     TrendingPresenter mTrendingPresenter;
@@ -71,14 +83,16 @@ public class TrendingFragment extends BaseFragment implements ITrendingContract.
         View view = inflater.inflate(R.layout.fragment_trending, null);
         ButterKnife.bind(this, view);
         initView();
+        initData();
         initAdapter();
+        mIsFirst = true;
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mTrendingPresenter.getTrendingRepo("all", "weekly");
+        mTrendingPresenter.getTrendingRepo(mLanguageType, mSince);
         mSkeletonScreen = Skeleton.bind(mRvTrendingList)
                                   .adapter(mAdapter)
                                   .shimmer(true)
@@ -97,9 +111,16 @@ public class TrendingFragment extends BaseFragment implements ITrendingContract.
     private void initView() {
         mRefreshLayout.setOnRefreshListener(() -> {
             mAdapter.setEnableLoadMore(false);
-            mTrendingPresenter.getTrendingRepo("all", "weekly");
+            mTrendingPresenter.getTrendingRepo(mLanguageType, mSince);
         });
         mRvTrendingList.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    private void initData() {
+        mLanguageTypeArray = getResources().getStringArray(R.array.spinner_language_type);
+        mSinceArray = new String[]{"daily", "weekly", "monthly"};
+        mLanguageType = mLanguageTypeArray[0].toLowerCase();
+        mSince = mSinceArray[0];
     }
 
     private void initAdapter() {
@@ -111,7 +132,7 @@ public class TrendingFragment extends BaseFragment implements ITrendingContract.
         mAdapter.setEnableLoadMore(true);
         mAdapter.setOnLoadMoreListener(() -> {
             mAdapter.setUpFetchEnable(false);
-            mTrendingPresenter.getTrendingRepo("all", "weekly");
+            mTrendingPresenter.getTrendingRepo(mLanguageType, mSince);
             mIsLoadingMore = true;
         }, mRvTrendingList);
         mAdapter.disableLoadMoreIfNotFullPage();
@@ -145,6 +166,7 @@ public class TrendingFragment extends BaseFragment implements ITrendingContract.
                 mIsLoadingMore = false;
             } else {
                 mAdapter.setNewData(data);
+                mSkeletonScreen.hide();
             }
         } else {
             if (mIsLoadingMore) {
@@ -157,7 +179,7 @@ public class TrendingFragment extends BaseFragment implements ITrendingContract.
 
         mAdapter.setUpFetchEnable(true);
         mAdapter.setEnableLoadMore(true);
-        mSkeletonScreen.hide();
+        mIsFirst = false;//之所以放在这里设置为false，是因为onItemSelected会被回调两次
     }
 
     @Override
@@ -183,5 +205,27 @@ public class TrendingFragment extends BaseFragment implements ITrendingContract.
                                        .activityModule(new ActivityModule(getActivity()))
                                        .trendingModule(new TrendingModule())
                                        .build();
+    }
+
+    @OnItemSelected({R.id.spi_since, R.id.spi_language_type})
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (mIsFirst && mRefreshLayout.isRefreshing()) {
+            return;
+        }
+        switch (parent.getId()) {
+            case R.id.spi_since:
+                mSince = mSinceArray[position];
+                mTrendingPresenter.getTrendingRepo(mLanguageType, mSince);
+                break;
+            case R.id.spi_language_type:
+                mLanguageType = mLanguageTypeArray[position].toLowerCase();
+                mTrendingPresenter.getTrendingRepo(mLanguageType, mSince);
+                break;
+        }
+    }
+
+    @OnItemSelected({R.id.spi_since, R.id.spi_language_type})
+    public void onNothingSelected(View view) {
+
     }
 }
