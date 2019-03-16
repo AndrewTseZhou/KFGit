@@ -5,8 +5,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/custom_action_bar"
-        android:id="@+id/custom_action_bar"/>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_blue_light"
+        android:elevation="@dimen/dp_10"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="KFGit"
+            android:textSize="20sp" />
+    </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
         android:id="@+id/home_container"
@@ -28,6 +45,5 @@
         app:itemBackground="@android:color/darker_gray"
         app:itemIconTint="@android:color/white"
         app:itemTextColor="@android:color/white"
-        app:menu="@menu/navigation_menu">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/navigation_menu" />
 </LinearLayout>

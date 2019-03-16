@@ -2,7 +2,6 @@ package com.andrewtse.kfgit.ui.module.main;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.andrewtse.kfgit.R;
@@ -11,6 +10,7 @@ import com.andrewtse.kfgit.ui.module.main.fragment.FragmentsDataGenerator;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,8 +25,8 @@ public class MainActivity extends BaseActivity {
     BottomNavigationView mBottomNavigationView;
     @BindView(R.id.tv_title)
     TextView mTvTitle;
-    @BindView(R.id.custom_action_bar)
-    RelativeLayout mActionBar;
+    @BindView(R.id.action_bar)
+    Toolbar mActionBar;
 
     private Fragment[] mFragments;
     private String[] mTitles = {"Trending", "Search", "Stars", "Profile"};
