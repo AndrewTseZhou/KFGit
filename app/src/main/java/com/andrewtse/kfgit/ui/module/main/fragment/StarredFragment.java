@@ -132,9 +132,9 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
 
     @Override
     public void showLoading() {
-        if (!mIsLoadingMore) {
-            mRefreshLayout.setRefreshing(true);
-        }
+//        if (!mIsLoadingMore) {
+//            mRefreshLayout.setRefreshing(true);
+//        }
     }
 
     @Override

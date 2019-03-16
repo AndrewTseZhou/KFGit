@@ -145,9 +145,9 @@ public class TrendingFragment extends BaseFragment implements ITrendingContract.
 
     @Override
     public void showLoading() {
-        if (!mIsLoadingMore) {
-            mRefreshLayout.setRefreshing(true);
-        }
+//        if (!mIsLoadingMore) {
+//            mRefreshLayout.setRefreshing(true);
+//        }
     }
 
     @Override
