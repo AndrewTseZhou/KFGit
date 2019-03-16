@@ -97,7 +97,7 @@ public class TrendingFragment extends BaseFragment implements ITrendingContract.
                                   .adapter(mAdapter)
                                   .shimmer(true)
                                   .frozen(false)
-                                  .color(R.color.dark_transparent)
+                                  .color(R.color.light_transparent)
                                   .load(R.layout.item_skeleton_repo)
                                   .show();
     }

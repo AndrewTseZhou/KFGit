@@ -87,7 +87,7 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
                                   .adapter(mAdapter)
                                   .shimmer(true)
                                   .frozen(false)
-                                  .color(R.color.dark_transparent)
+                                  .color(R.color.light_transparent)
                                   .load(R.layout.item_skeleton_repo)
                                   .show();
     }
