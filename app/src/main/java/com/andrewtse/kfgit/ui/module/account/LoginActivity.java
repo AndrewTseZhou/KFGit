@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.andrewtse.kfgit.KFGitApplication;
 import com.andrewtse.kfgit.R;
+import com.andrewtse.kfgit.common.utils.ActivityUtils;
 import com.andrewtse.kfgit.common.utils.NetworkUtils;
 import com.andrewtse.kfgit.contract.ILoginContract;
 import com.andrewtse.kfgit.data.pref.UserPref;
@@ -104,8 +105,7 @@ public class LoginActivity extends BaseActivity implements ILoginContract.ILogin
     public void loginSuccess(User user) {
         UserPref.saveLoginUser(this, user);
         Log.d(TAG, "loginSuccess: 登录成功");
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        ActivityUtils.startActivity(this, MainActivity.class);
         finish();
     }
 
