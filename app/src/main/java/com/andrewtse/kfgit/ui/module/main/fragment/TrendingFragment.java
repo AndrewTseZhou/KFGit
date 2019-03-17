@@ -11,10 +11,10 @@ import com.andrewtse.kfgit.KFGitApplication;
 import com.andrewtse.kfgit.R;
 import com.andrewtse.kfgit.contract.ITrendingContract;
 import com.andrewtse.kfgit.di.IHasComponent;
-import com.andrewtse.kfgit.di.component.DaggerITrendingComponent;
-import com.andrewtse.kfgit.di.component.ITrendingComponent;
+import com.andrewtse.kfgit.di.component.DaggerIRepoComponent;
+import com.andrewtse.kfgit.di.component.IRepoComponent;
 import com.andrewtse.kfgit.di.module.ActivityModule;
-import com.andrewtse.kfgit.di.module.TrendingModule;
+import com.andrewtse.kfgit.di.module.RepoModule;
 import com.andrewtse.kfgit.model.TrendingModel;
 import com.andrewtse.kfgit.presenter.TrendingPresenter;
 import com.andrewtse.kfgit.ui.adapter.TrendingFragmentAdapter;
@@ -40,7 +40,7 @@ import butterknife.OnItemSelected;
  * @author xk
  * @date 2019/2/19
  */
-public class TrendingFragment extends BaseFragment implements ITrendingContract.ITrendingView, IHasComponent<ITrendingComponent> {
+public class TrendingFragment extends BaseFragment implements ITrendingContract.ITrendingView, IHasComponent<IRepoComponent> {
 
     @BindView(R.id.rv_trending_list)
     RecyclerView mRvTrendingList;
@@ -199,17 +199,17 @@ public class TrendingFragment extends BaseFragment implements ITrendingContract.
     }
 
     @Override
-    public ITrendingComponent getComponent() {
-        return DaggerITrendingComponent.builder()
-                                       .iApplicationComponent(KFGitApplication.get(getActivity()).getComponent())
-                                       .activityModule(new ActivityModule(getActivity()))
-                                       .trendingModule(new TrendingModule())
-                                       .build();
+    public IRepoComponent getComponent() {
+        return DaggerIRepoComponent.builder()
+                                   .iApplicationComponent(KFGitApplication.get(getActivity()).getComponent())
+                                   .activityModule(new ActivityModule(getActivity()))
+                                   .repoModule(new RepoModule())
+                                   .build();
     }
 
     @OnItemSelected({R.id.spi_since, R.id.spi_language_type})
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (mIsFirst && mRefreshLayout.isRefreshing()) {
+        if (mIsFirst || mRefreshLayout.isRefreshing()) {
             return;
         }
         switch (parent.getId()) {

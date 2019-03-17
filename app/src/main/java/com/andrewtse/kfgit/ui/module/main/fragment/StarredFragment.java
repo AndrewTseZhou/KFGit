@@ -1,6 +1,5 @@
 package com.andrewtse.kfgit.ui.module.main.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +11,10 @@ import com.andrewtse.kfgit.R;
 import com.andrewtse.kfgit.contract.IStarredContract;
 import com.andrewtse.kfgit.data.pref.UserPref;
 import com.andrewtse.kfgit.di.IHasComponent;
-import com.andrewtse.kfgit.di.component.DaggerIStarredComponent;
-import com.andrewtse.kfgit.di.component.IStarredComponent;
+import com.andrewtse.kfgit.di.component.DaggerIRepoComponent;
+import com.andrewtse.kfgit.di.component.IRepoComponent;
 import com.andrewtse.kfgit.di.module.ActivityModule;
-import com.andrewtse.kfgit.di.module.StarredModule;
+import com.andrewtse.kfgit.di.module.RepoModule;
 import com.andrewtse.kfgit.model.StarredModel;
 import com.andrewtse.kfgit.presenter.StarredPresenter;
 import com.andrewtse.kfgit.ui.adapter.StarredFragmentAdapter;
@@ -39,7 +38,7 @@ import butterknife.ButterKnife;
  * @author xk
  * @date 2019/2/19
  */
-public class StarredFragment extends BaseFragment implements IStarredContract.IStarredView, IHasComponent<IStarredComponent> {
+public class StarredFragment extends BaseFragment implements IStarredContract.IStarredView, IHasComponent<IRepoComponent> {
 
     @BindView(R.id.rv_stars_list)
     RecyclerView mRvStarsList;
@@ -82,7 +81,7 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mStarsPresenter.loadStarsRepo(UserPref.getLoginToken(getActivity()), mPage++, mPerPage);
+        mStarsPresenter.loadMyStarred(UserPref.getLoginToken(getActivity()), mPage++, mPerPage);
         mSkeletonScreen = Skeleton.bind(mRvStarsList)
                                   .adapter(mAdapter)
                                   .shimmer(true)
@@ -102,7 +101,7 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
         mRefreshLayout.setOnRefreshListener(() -> {
             mAdapter.setEnableLoadMore(false);
             mPage = 1;
-            mStarsPresenter.loadStarsRepo(UserPref.getLoginToken(getActivity()), mPage++, mPerPage);
+            mStarsPresenter.loadMyStarred(UserPref.getLoginToken(getActivity()), mPage++, mPerPage);
         });
         mRvStarsList.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
@@ -116,7 +115,7 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
         mAdapter.setEnableLoadMore(true);
         mAdapter.setOnLoadMoreListener(() -> {
             mAdapter.setUpFetchEnable(false);
-            mStarsPresenter.loadStarsRepo(UserPref.getLoginToken(getActivity()), mPage++, mPerPage);
+            mStarsPresenter.loadMyStarred(UserPref.getLoginToken(getActivity()), mPage++, mPerPage);
             mIsLoadingMore = true;
         }, mRvStarsList);
         mAdapter.disableLoadMoreIfNotFullPage();
@@ -186,11 +185,11 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
     }
 
     @Override
-    public IStarredComponent getComponent() {
-        return DaggerIStarredComponent.builder()
-                                      .iApplicationComponent(KFGitApplication.get(this.getActivity()).getComponent())
-                                      .activityModule(new ActivityModule(this.getActivity()))
-                                      .starredModule(new StarredModule())
-                                      .build();
+    public IRepoComponent getComponent() {
+        return DaggerIRepoComponent.builder()
+                                   .iApplicationComponent(KFGitApplication.get(this.getActivity()).getComponent())
+                                   .activityModule(new ActivityModule(this.getActivity()))
+                                   .repoModule(new RepoModule())
+                                   .build();
     }
 }

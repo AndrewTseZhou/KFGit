@@ -89,4 +89,19 @@ public class TrendingModel implements ITrendingContract.ITrendingModel {
     public void setFork(boolean fork) {
         mIsFork = fork;
     }
+
+    @Override
+    public String toString() {
+        return "TrendingModel{" +
+               "mFullName='" + mFullName + '\'' +
+               ", mDescription='" + mDescription + '\'' +
+               ", mTrend='" + mTrend + '\'' +
+               ", mColor='" + mColor + '\'' +
+               ", mLanguage='" + mLanguage + '\'' +
+               ", mStarredCount='" + mStarredCount + '\'' +
+               ", mForksCount='" + mForksCount + '\'' +
+               ", mIsStarred=" + mIsStarred +
+               ", mIsFork=" + mIsFork +
+               '}';
+    }
 }

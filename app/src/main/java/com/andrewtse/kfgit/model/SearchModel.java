@@ -8,7 +8,7 @@ import com.andrewtse.kfgit.contract.ISearchContract;
  * @author xk
  * @date 2019/2/22
  */
-public class SearchModel extends RepoModel implements ISearchContract.ISearchModel {
+public class SearchModel extends BaseRepoModel implements ISearchContract.ISearchModel {
 
     private double score;
 
@@ -48,4 +48,11 @@ public class SearchModel extends RepoModel implements ISearchContract.ISearchMod
             return new SearchModel[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "SearchModel{" +
+               "score=" + score +
+               "} " + super.toString();
+    }
 }

@@ -4,7 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.andrewtse.kfgit.contract.IStarredContract;
-import com.andrewtse.kfgit.data.api.StarredApi;
+import com.andrewtse.kfgit.data.api.RepoApi;
 import com.andrewtse.kfgit.model.StarredModel;
 
 import java.util.List;
@@ -24,45 +24,45 @@ public class StarredPresenter extends BasePresenterImpl<IStarredContract.IStarre
 
     private static final String TAG = "StarredPresenter";
 
-    private final StarredApi mStarredApi;
+    private final RepoApi mRepoApi;
 
     @Inject
     Application mContext;
 
     @Inject
-    public StarredPresenter(StarredApi starredApi) {
-        mStarredApi = starredApi;
+    public StarredPresenter(RepoApi starredApi) {
+        mRepoApi = starredApi;
     }
 
-    public void loadStarsRepo(String token, int page, int perPage) {
-        mStarredApi.loadStarred(token, page, perPage)
-                   .subscribeOn(Schedulers.io())
-                   .observeOn(AndroidSchedulers.mainThread())
-                   .doOnSubscribe(disposable -> getBaseView().showLoading())
-                   .doOnTerminate(() -> getBaseView().dismissLoading())
-                   .subscribe(new Observer<List<StarredModel>>() {
-                       @Override
-                       public void onSubscribe(Disposable d) {
-                           Log.d(TAG, "onSubscribe: " + d);
-                           mCompositeDisposable.add(d);
-                       }
+    public void loadMyStarred(String token, int page, int perPage) {
+        mRepoApi.loadMyStarred(token, page, perPage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(disposable -> getBaseView().showLoading())
+                .doOnTerminate(() -> getBaseView().dismissLoading())
+                .subscribe(new Observer<List<StarredModel>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.d(TAG, "onSubscribe: " + d);
+                        mCompositeDisposable.add(d);
+                    }
 
-                       @Override
-                       public void onNext(List<StarredModel> starredModels) {
-                           Log.d(TAG, "onNext: " + starredModels);
-                           getBaseView().showContent(starredModels);
-                       }
+                    @Override
+                    public void onNext(List<StarredModel> starredModels) {
+                        Log.d(TAG, "onNext: " + starredModels);
+                        getBaseView().showContent(starredModels);
+                    }
 
-                       @Override
-                       public void onError(Throwable e) {
-                           Log.d(TAG, "onError: " + e.toString());
-                           getBaseView().showError(e);
-                       }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "onError: " + e.toString());
+                        getBaseView().showError(e);
+                    }
 
-                       @Override
-                       public void onComplete() {
-                           Log.d(TAG, "onComplete: ");
-                       }
-                   });
+                    @Override
+                    public void onComplete() {
+                        Log.d(TAG, "onComplete: ");
+                    }
+                });
     }
 }

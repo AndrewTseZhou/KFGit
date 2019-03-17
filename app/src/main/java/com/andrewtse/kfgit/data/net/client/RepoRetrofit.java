@@ -8,14 +8,14 @@ import okhttp3.OkHttpClient;
 
 /**
  * @author xk
- * @date 2019/2/26
+ * @date 2019/3/17
  */
-public class TrendingRetrofit extends BaseRetrofit {
+public class RepoRetrofit extends BaseRetrofit {
 
     CacheHttpClient mCacheHttpClient;
 
     @Inject
-    public TrendingRetrofit(CacheHttpClient client) {
+    public RepoRetrofit(CacheHttpClient client) {
         mCacheHttpClient = client;
     }
 

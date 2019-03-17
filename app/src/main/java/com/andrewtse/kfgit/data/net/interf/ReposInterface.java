@@ -29,5 +29,5 @@ public interface ReposInterface {
 
     //Star模块
     @GET("/user/starred")
-    Observable<List<StarredModel>> getStarred(@Query("page") int page, @Query("per_page") int perPage);
+    Observable<List<StarredModel>> getMyStarred(@Query("page") int page, @Query("per_page") int perPage);
 }

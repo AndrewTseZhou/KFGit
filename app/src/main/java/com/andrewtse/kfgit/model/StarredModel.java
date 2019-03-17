@@ -9,7 +9,7 @@ import com.andrewtse.kfgit.contract.IStarredContract;
  * @author xk
  * @date 2019/2/19
  */
-public class StarredModel extends RepoModel implements IStarredContract.IStarredModel {
+public class StarredModel extends BaseRepoModel implements IStarredContract.IStarredModel {
 
     private PermissionsBean permissions;
 
@@ -111,5 +111,21 @@ public class StarredModel extends RepoModel implements IStarredContract.IStarred
                 return new PermissionsBean[size];
             }
         };
+
+        @Override
+        public String toString() {
+            return "PermissionsBean{" +
+                   "admin=" + admin +
+                   ", push=" + push +
+                   ", pull=" + pull +
+                   '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "StarredModel{" +
+               "permissions=" + permissions +
+               "} " + super.toString();
     }
 }

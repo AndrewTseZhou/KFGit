@@ -1,12 +1,11 @@
 package com.andrewtse.kfgit.presenter;
 
 import android.app.Application;
-import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.andrewtse.kfgit.contract.ITrendingContract;
-import com.andrewtse.kfgit.data.api.TrendingApi;
+import com.andrewtse.kfgit.data.api.RepoApi;
 import com.andrewtse.kfgit.model.TrendingModel;
 
 import org.jsoup.Jsoup;
@@ -33,46 +32,46 @@ public class TrendingPresenter extends BasePresenterImpl<ITrendingContract.ITren
 
     private static final String TAG = "TrendingPresenter";
 
-    private final TrendingApi mTrendingApi;
+    private final RepoApi mRepoApi;
 
     @Inject
     Application mContext;
 
     @Inject
-    public TrendingPresenter(TrendingApi trendingApi) {
-        mTrendingApi = trendingApi;
+    public TrendingPresenter(RepoApi trendingApi) {
+        mRepoApi = trendingApi;
     }
 
     public void getTrendingRepo(String languageType, String q) {
-        mTrendingApi.getTrendingRepo(languageType, q)
-                    .throttleFirst(3, TimeUnit.SECONDS)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSubscribe(disposable -> getBaseView().showLoading())
-                    .doOnTerminate(() -> getBaseView().dismissLoading())
-                    .subscribe(new Observer<String>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-                            Log.d(TAG, "onSubscribe: " + d);
-                            mCompositeDisposable.add(d);
-                        }
+        mRepoApi.getTrendingRepo(languageType, q)
+                .throttleFirst(3, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(disposable -> getBaseView().showLoading())
+                .doOnTerminate(() -> getBaseView().dismissLoading())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.d(TAG, "onSubscribe: " + d);
+                        mCompositeDisposable.add(d);
+                    }
 
-                        @Override
-                        public void onNext(String s) {
-                            Log.d(TAG, "onNext: " + s);
-                            getBaseView().showContent(htmlToModel(s));
-                        }
+                    @Override
+                    public void onNext(String s) {
+                        Log.d(TAG, "onNext: " + s);
+                        getBaseView().showContent(htmlToModel(s));
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            Log.d(TAG, "onError: " + e.toString());
-                        }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "onError: " + e.toString());
+                    }
 
-                        @Override
-                        public void onComplete() {
-                            Log.d(TAG, "onComplete: ");
-                        }
-                    });
+                    @Override
+                    public void onComplete() {
+                        Log.d(TAG, "onComplete: ");
+                    }
+                });
     }
 
     private List<TrendingModel> htmlToModel(String html) {
@@ -84,7 +83,7 @@ public class TrendingPresenter extends BasePresenterImpl<ITrendingContract.ITren
             model.setFullName(element.select("div[class=d-inline-block col-9 mb-1] > h3 > a").text());
             model.setDescription(element.select("div[class=py-1] > p").text());
             String colorStr = element.select("div[class=f6 text-gray mt-2] > span[class=d-inline-block mr-3] > span[class=repo-language-color ml-0]")
-                                  .attr("style");
+                                     .attr("style");
             if (!TextUtils.isEmpty(colorStr)) {
                 String colorId = colorStr.substring(17, 24);
                 model.setColor(colorId);

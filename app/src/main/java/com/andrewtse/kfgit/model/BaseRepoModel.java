@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * @author xk
  * @date 2019/2/25
  */
-public class RepoModel implements Parcelable {
+public class BaseRepoModel implements Parcelable {
 
     private int id;
     private String node_id;
@@ -739,10 +739,10 @@ public class RepoModel implements Parcelable {
         dest.writeString(this.default_branch);
     }
 
-    public RepoModel() {
+    public BaseRepoModel() {
     }
 
-    protected RepoModel(Parcel in) {
+    protected BaseRepoModel(Parcel in) {
         this.id = in.readInt();
         this.node_id = in.readString();
         this.name = in.readString();
@@ -817,15 +817,15 @@ public class RepoModel implements Parcelable {
         this.default_branch = in.readString();
     }
 
-    public static final Creator<RepoModel> CREATOR = new Creator<RepoModel>() {
+    public static final Creator<BaseRepoModel> CREATOR = new Creator<BaseRepoModel>() {
         @Override
-        public RepoModel createFromParcel(Parcel source) {
-            return new RepoModel(source);
+        public BaseRepoModel createFromParcel(Parcel source) {
+            return new BaseRepoModel(source);
         }
 
         @Override
-        public RepoModel[] newArray(int size) {
-            return new RepoModel[size];
+        public BaseRepoModel[] newArray(int size) {
+            return new BaseRepoModel[size];
         }
     };
 
@@ -1055,6 +1055,30 @@ public class RepoModel implements Parcelable {
                 return new OwnerBean[size];
             }
         };
+
+        @Override
+        public String toString() {
+            return "OwnerBean{" +
+                   "login='" + login + '\'' +
+                   ", id=" + id +
+                   ", node_id='" + node_id + '\'' +
+                   ", avatar_url='" + avatar_url + '\'' +
+                   ", gravatar_id='" + gravatar_id + '\'' +
+                   ", url='" + url + '\'' +
+                   ", html_url='" + html_url + '\'' +
+                   ", followers_url='" + followers_url + '\'' +
+                   ", following_url='" + following_url + '\'' +
+                   ", gists_url='" + gists_url + '\'' +
+                   ", starred_url='" + starred_url + '\'' +
+                   ", subscriptions_url='" + subscriptions_url + '\'' +
+                   ", organizations_url='" + organizations_url + '\'' +
+                   ", repos_url='" + repos_url + '\'' +
+                   ", events_url='" + events_url + '\'' +
+                   ", received_events_url='" + received_events_url + '\'' +
+                   ", type='" + type + '\'' +
+                   ", site_admin=" + site_admin +
+                   '}';
+        }
     }
 
     public static class LicenseBean implements Parcelable {
@@ -1140,5 +1164,94 @@ public class RepoModel implements Parcelable {
                 return new LicenseBean[size];
             }
         };
+
+        @Override
+        public String toString() {
+            return "LicenseBean{" +
+                   "key='" + key + '\'' +
+                   ", name='" + name + '\'' +
+                   ", spdx_id='" + spdx_id + '\'' +
+                   ", url='" + url + '\'' +
+                   ", node_id='" + node_id + '\'' +
+                   '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "RepoModel{" +
+               "id=" + id +
+               ", node_id='" + node_id + '\'' +
+               ", name='" + name + '\'' +
+               ", full_name='" + full_name + '\'' +
+               ", privateX=" + privateX +
+               ", owner=" + owner +
+               ", html_url='" + html_url + '\'' +
+               ", description='" + description + '\'' +
+               ", fork=" + fork +
+               ", url='" + url + '\'' +
+               ", forks_url='" + forks_url + '\'' +
+               ", keys_url='" + keys_url + '\'' +
+               ", collaborators_url='" + collaborators_url + '\'' +
+               ", teams_url='" + teams_url + '\'' +
+               ", hooks_url='" + hooks_url + '\'' +
+               ", issue_events_url='" + issue_events_url + '\'' +
+               ", events_url='" + events_url + '\'' +
+               ", assignees_url='" + assignees_url + '\'' +
+               ", branches_url='" + branches_url + '\'' +
+               ", tags_url='" + tags_url + '\'' +
+               ", blobs_url='" + blobs_url + '\'' +
+               ", git_tags_url='" + git_tags_url + '\'' +
+               ", git_refs_url='" + git_refs_url + '\'' +
+               ", trees_url='" + trees_url + '\'' +
+               ", statuses_url='" + statuses_url + '\'' +
+               ", languages_url='" + languages_url + '\'' +
+               ", stargazers_url='" + stargazers_url + '\'' +
+               ", contributors_url='" + contributors_url + '\'' +
+               ", subscribers_url='" + subscribers_url + '\'' +
+               ", subscription_url='" + subscription_url + '\'' +
+               ", commits_url='" + commits_url + '\'' +
+               ", git_commits_url='" + git_commits_url + '\'' +
+               ", comments_url='" + comments_url + '\'' +
+               ", issue_comment_url='" + issue_comment_url + '\'' +
+               ", contents_url='" + contents_url + '\'' +
+               ", compare_url='" + compare_url + '\'' +
+               ", merges_url='" + merges_url + '\'' +
+               ", archive_url='" + archive_url + '\'' +
+               ", downloads_url='" + downloads_url + '\'' +
+               ", issues_url='" + issues_url + '\'' +
+               ", pulls_url='" + pulls_url + '\'' +
+               ", milestones_url='" + milestones_url + '\'' +
+               ", notifications_url='" + notifications_url + '\'' +
+               ", labels_url='" + labels_url + '\'' +
+               ", releases_url='" + releases_url + '\'' +
+               ", deployments_url='" + deployments_url + '\'' +
+               ", created_at='" + created_at + '\'' +
+               ", updated_at='" + updated_at + '\'' +
+               ", pushed_at='" + pushed_at + '\'' +
+               ", git_url='" + git_url + '\'' +
+               ", ssh_url='" + ssh_url + '\'' +
+               ", clone_url='" + clone_url + '\'' +
+               ", svn_url='" + svn_url + '\'' +
+               ", homepage='" + homepage + '\'' +
+               ", size=" + size +
+               ", stargazers_count=" + stargazers_count +
+               ", watchers_count=" + watchers_count +
+               ", language='" + language + '\'' +
+               ", has_issues=" + has_issues +
+               ", has_projects=" + has_projects +
+               ", has_downloads=" + has_downloads +
+               ", has_wiki=" + has_wiki +
+               ", has_pages=" + has_pages +
+               ", forks_count=" + forks_count +
+               ", mirror_url='" + mirror_url + '\'' +
+               ", archived=" + archived +
+               ", open_issues_count=" + open_issues_count +
+               ", license=" + license +
+               ", forks=" + forks +
+               ", open_issues=" + open_issues +
+               ", watchers=" + watchers +
+               ", default_branch='" + default_branch + '\'' +
+               '}';
     }
 }

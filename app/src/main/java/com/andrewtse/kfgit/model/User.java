@@ -368,4 +368,40 @@ public class User implements ILoginContract.IUser, Parcelable {
             return new User[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "User{" +
+               "login='" + login + '\'' +
+               ", id=" + id +
+               ", avatar_url='" + avatar_url + '\'' +
+               ", gravatar_id='" + gravatar_id + '\'' +
+               ", url='" + url + '\'' +
+               ", html_url='" + html_url + '\'' +
+               ", followers_url='" + followers_url + '\'' +
+               ", following_url='" + following_url + '\'' +
+               ", gists_url='" + gists_url + '\'' +
+               ", starred_url='" + starred_url + '\'' +
+               ", subscriptions_url='" + subscriptions_url + '\'' +
+               ", organizations_url='" + organizations_url + '\'' +
+               ", repos_url='" + repos_url + '\'' +
+               ", events_url='" + events_url + '\'' +
+               ", received_events_url='" + received_events_url + '\'' +
+               ", type='" + type + '\'' +
+               ", site_admin=" + site_admin +
+               ", name='" + name + '\'' +
+               ", company='" + company + '\'' +
+               ", blog='" + blog + '\'' +
+               ", location='" + location + '\'' +
+               ", email='" + email + '\'' +
+               ", hireable='" + hireable + '\'' +
+               ", bio='" + bio + '\'' +
+               ", public_repos=" + public_repos +
+               ", public_gists=" + public_gists +
+               ", followers=" + followers +
+               ", following=" + following +
+               ", created_at='" + created_at + '\'' +
+               ", updated_at='" + updated_at + '\'' +
+               '}';
+    }
 }

@@ -16,12 +16,12 @@ import com.andrewtse.kfgit.KFGitApplication;
 import com.andrewtse.kfgit.R;
 import com.andrewtse.kfgit.common.utils.KeyboardUtils;
 import com.andrewtse.kfgit.contract.ISearchContract;
-import com.andrewtse.kfgit.data.net.datasource.SearchDataSource;
+import com.andrewtse.kfgit.data.net.datasource.RepoDataSource;
 import com.andrewtse.kfgit.di.IHasComponent;
-import com.andrewtse.kfgit.di.component.DaggerISearchComponent;
-import com.andrewtse.kfgit.di.component.ISearchComponent;
+import com.andrewtse.kfgit.di.component.DaggerIRepoComponent;
+import com.andrewtse.kfgit.di.component.IRepoComponent;
 import com.andrewtse.kfgit.di.module.ActivityModule;
-import com.andrewtse.kfgit.di.module.SearchModule;
+import com.andrewtse.kfgit.di.module.RepoModule;
 import com.andrewtse.kfgit.model.SearchModel;
 import com.andrewtse.kfgit.presenter.SearchPresenter;
 import com.andrewtse.kfgit.ui.adapter.SearchFragmentAdapter;
@@ -43,7 +43,7 @@ import butterknife.ButterKnife;
  * @author xk
  * @date 2019/2/19
  */
-public class SearchFragment extends BaseFragment implements ISearchContract.ISearchView, IHasComponent<ISearchComponent> {
+public class SearchFragment extends BaseFragment implements ISearchContract.ISearchView, IHasComponent<IRepoComponent> {
 
     @BindView(R.id.et_search)
     TextInputEditText mEtSearch;
@@ -67,7 +67,7 @@ public class SearchFragment extends BaseFragment implements ISearchContract.ISea
     private boolean mIsCanLoadMore = true;
     private String mInput;
     private Animation mLoadAnimation;
-    private int mSearchType = SearchDataSource.SEARCH_REPOS;
+    private int mSearchType = RepoDataSource.SEARCH_REPOS;
 
     public static SearchFragment newInstance() {
         return new SearchFragment();
@@ -126,11 +126,11 @@ public class SearchFragment extends BaseFragment implements ISearchContract.ISea
         });
 
         mIbSwitcher.setOnClickListener(v -> {
-            if (mSearchType == SearchDataSource.SEARCH_REPOS) {
-                mSearchType = SearchDataSource.SEARCH_USERS;
+            if (mSearchType == RepoDataSource.SEARCH_REPOS) {
+                mSearchType = RepoDataSource.SEARCH_USERS;
                 mIbSwitcher.setBackgroundResource(R.drawable.ic_search_users);
             } else {
-                mSearchType = SearchDataSource.SEARCH_REPOS;
+                mSearchType = RepoDataSource.SEARCH_REPOS;
                 mIbSwitcher.setBackgroundResource(R.drawable.ic_search_repo);
             }
         });
@@ -210,11 +210,11 @@ public class SearchFragment extends BaseFragment implements ISearchContract.ISea
     }
 
     @Override
-    public ISearchComponent getComponent() {
-        return DaggerISearchComponent.builder()
-                                     .iApplicationComponent(KFGitApplication.get(getActivity()).getComponent())
-                                     .activityModule(new ActivityModule(getActivity()))
-                                     .searchModule(new SearchModule())
-                                     .build();
+    public IRepoComponent getComponent() {
+        return DaggerIRepoComponent.builder()
+                                   .iApplicationComponent(KFGitApplication.get(getActivity()).getComponent())
+                                   .activityModule(new ActivityModule(getActivity()))
+                                   .repoModule(new RepoModule())
+                                   .build();
     }
 }
