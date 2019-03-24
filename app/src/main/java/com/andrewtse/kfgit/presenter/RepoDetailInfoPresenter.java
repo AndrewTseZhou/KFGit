@@ -18,18 +18,13 @@ import io.reactivex.schedulers.Schedulers;
  * @author xk
  * @date 2019/3/17
  */
-public class RepoDetailInfoPresenter extends BasePresenterImpl<IRepoDetailInfoContract.IRepoDetailInfoView> {
+public class RepoDetailInfoPresenter extends BaseRepoPresenter<IRepoDetailInfoContract.IRepoDetailInfoView> {
 
     private static final String TAG = "RepoDetailInfoPresenter";
 
-    private final RepoApi mRepoApi;
-
-    @Inject
-    Application mContext;
-
     @Inject
     public RepoDetailInfoPresenter(RepoApi repoApi) {
-        mRepoApi = repoApi;
+        super(repoApi);
     }
 
     public void getRepoDetailInfo(String owner, String repo) {

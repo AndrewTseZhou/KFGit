@@ -28,18 +28,13 @@ import io.reactivex.schedulers.Schedulers;
  * @author xk
  * @date 2019/2/26
  */
-public class TrendingPresenter extends BasePresenterImpl<ITrendingContract.ITrendingView> {
+public class TrendingPresenter extends BaseRepoPresenter<ITrendingContract.ITrendingView> {
 
     private static final String TAG = "TrendingPresenter";
 
-    private final RepoApi mRepoApi;
-
-    @Inject
-    Application mContext;
-
     @Inject
     public TrendingPresenter(RepoApi trendingApi) {
-        mRepoApi = trendingApi;
+        super(trendingApi);
     }
 
     public void getTrendingRepo(String languageType, String q) {

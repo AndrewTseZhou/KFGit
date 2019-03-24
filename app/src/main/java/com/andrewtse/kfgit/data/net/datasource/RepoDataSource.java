@@ -38,19 +38,21 @@ public class RepoDataSource implements RepoApi {
     public RepoDataSource() {
     }
 
+    private ReposInterface getInterfaceInstance() {
+        return mRetrofit.get().create(ReposInterface.class);
+    }
+
     @Override
     public Observable<String> getTrendingRepo(String languageType, String q) {
-        ReposInterface trendingInterface = mRetrofit.get().create(ReposInterface.class);
-        return trendingInterface.getTrendingRepo(languageType, q);
+        return getInterfaceInstance().getTrendingRepo(languageType, q);
     }
 
     @Override
     public Observable<SearchResp> getSearchResult(String q, int page, int perPage, int type) {
-        ReposInterface searchInterface = mRetrofit.get().create(ReposInterface.class);
         if (type == SEARCH_REPOS) {
-            return searchInterface.getSearchRepoResult(q, page, perPage);
+            return getInterfaceInstance().getSearchRepoResult(q, page, perPage);
         } else {
-            return searchInterface.getSearchUsersResult(q, page, perPage);
+            return getInterfaceInstance().getSearchUsersResult(q, page, perPage);
         }
     }
 
@@ -63,7 +65,6 @@ public class RepoDataSource implements RepoApi {
 
     @Override
     public Observable<RepoDetailInfoModel> getRepoDetailInfo(String owner, String repo) {
-        ReposInterface repoInfoInterface = mRetrofit.get().create(ReposInterface.class);
-        return repoInfoInterface.getRepoDetailInfo(owner, repo);
+        return getInterfaceInstance().getRepoDetailInfo(owner, repo);
     }
 }

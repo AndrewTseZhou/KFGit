@@ -20,18 +20,13 @@ import io.reactivex.schedulers.Schedulers;
  * @author xk
  * @date 2019/2/22
  */
-public class SearchPresenter extends BasePresenterImpl<ISearchContract.ISearchView> {
+public class SearchPresenter extends BaseRepoPresenter<ISearchContract.ISearchView> {
 
     private static final String TAG = "SearchPresenter";
 
-    private final RepoApi mRepoApi;
-
-    @Inject
-    Application mContext;
-
     @Inject
     public SearchPresenter(RepoApi searchRepoApi) {
-        mRepoApi = searchRepoApi;
+        super(searchRepoApi);
     }
 
     public void getSearchResult(String q, int page, int perPage, int type) {

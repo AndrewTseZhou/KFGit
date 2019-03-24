@@ -20,18 +20,13 @@ import io.reactivex.schedulers.Schedulers;
  * @author xk
  * @date 2019/2/19
  */
-public class StarredPresenter extends BasePresenterImpl<IStarredContract.IStarredView> {
+public class StarredPresenter extends BaseRepoPresenter<IStarredContract.IStarredView> {
 
     private static final String TAG = "StarredPresenter";
 
-    private final RepoApi mRepoApi;
-
-    @Inject
-    Application mContext;
-
     @Inject
     public StarredPresenter(RepoApi starredApi) {
-        mRepoApi = starredApi;
+        super(starredApi);
     }
 
     public void loadMyStarred(String token, int page, int perPage) {
