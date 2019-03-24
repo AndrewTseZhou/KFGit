@@ -29,8 +29,8 @@ public class RepoInfoAdapter extends BaseQuickAdapter<RepoInfoItem, BaseViewHold
 
     @Override
     protected void convert(BaseViewHolder holder, RepoInfoItem item) {
-        holder.setImageResource(R.id.iv_item_icon, item.getIconId());
-        holder.setText(R.id.tv_item_key, item.getKey());
-        holder.setText(R.id.tv_item_value, item.getValue());
+        holder.setImageResource(R.id.iv_item_icon, item.getIconId())
+              .setText(R.id.tv_item_key, item.getKey())
+              .setText(R.id.tv_item_value, item.getValue());
     }
 }

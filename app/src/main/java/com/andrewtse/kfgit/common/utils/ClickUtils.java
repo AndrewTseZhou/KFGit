@@ -1,6 +1,7 @@
 package com.andrewtse.kfgit.common.utils;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.andrewtse.kfgit.model.BaseRepoModel;
@@ -18,7 +19,7 @@ public class ClickUtils {
     public static void handleTrendingRepoClick(BaseQuickAdapter adapter, View view, int position) {
         Bundle bundle = new Bundle();
         TrendingModel modelInfo = (TrendingModel) adapter.getItem(position);
-        if (modelInfo != null && modelInfo.getFullName() != null) {
+        if (modelInfo != null && !TextUtils.isEmpty(modelInfo.getFullName())) {
             String[] fullName = modelInfo.getFullName().split("/");
             bundle.putString(RepoDetailInfoActivity.OWNER_NAME, fullName[0].trim());
             bundle.putString(RepoDetailInfoActivity.REPO_NAME, fullName[1].trim());
