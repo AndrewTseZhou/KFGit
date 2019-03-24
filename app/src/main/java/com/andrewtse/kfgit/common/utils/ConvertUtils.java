@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public final class ConvertUtils {
 
@@ -625,5 +628,39 @@ public final class ConvertUtils {
             }
         }
         return true;
+    }
+
+    public static String convertTime(String originalDate) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        Date passDate;
+        Date nowDate;
+        long diff;
+        String result = "";
+
+        try {
+            passDate = sdf.parse(originalDate);
+            String nowStr = sdf.format(new Date());
+            nowDate = sdf.parse(nowStr);
+            diff = nowDate.getTime() - passDate.getTime();
+
+            if (diff / 60 / 60 / 24 / 7 / 31 / 12 / 1000 > 0) {
+                result = "updated at " + (diff / 60 / 60 / 24 / 7 / 31 / 12 / 1000) + " year ago";
+            } else if (diff / 60 / 60 / 24 / 7 / 31 / 1000 > 0) {
+                result = "updated at " + (diff / 60 / 60 / 24 / 7 / 31 / 1000) + " months ago";
+            } else if (diff / 60 / 60 / 24 / 7 / 1000 > 0) {
+                result = "updated at " + (diff / 60 / 60 / 24 / 7 / 1000) + " week ago";
+            } else if (diff / 60 / 60 / 24 / 1000 > 0) {
+                result = "updated at " + (diff / 60 / 60 / 24 / 1000) + " days ago";
+            } else if (diff / 60 / 60 / 1000 > 0) {
+                result = "updated at " + (diff / 60 / 60 / 1000) + " hours ago";
+            } else if (diff / 60 / 1000 > 0) {
+                result = "updated at " + (diff / 60 / 1000) + " minutes ago";
+            } else {
+                result = "updated at " + "just now";
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

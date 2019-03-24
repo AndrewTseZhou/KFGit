@@ -5,9 +5,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.andrewtse.kfgit.R;
+import com.andrewtse.kfgit.common.utils.GlideUtils;
 import com.andrewtse.kfgit.model.SearchModel;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -36,11 +35,7 @@ public class SearchFragmentAdapter extends BaseQuickAdapter<SearchModel, SearchF
 
     @Override
     protected void convert(SearchViewHolder holder, SearchModel item) {
-        Glide.with(mContext)
-             .asBitmap()
-             .load(item.getOwner().getAvatarUrl())
-             .diskCacheStrategy(DiskCacheStrategy.ALL)
-             .into((ImageView) holder.getView(R.id.iv_avatar));
+        GlideUtils.loadImg(mContext, item.getOwner().getAvatarUrl(), (ImageView) holder.getView(R.id.iv_avatar));
         holder.setText(R.id.tv_full_name, item.getFullName());
         holder.setText(R.id.tv_description, item.getDescription());
         holder.setText(R.id.tv_license_name, item.getLicense() != null ? item.getLicense().getName() : "None");

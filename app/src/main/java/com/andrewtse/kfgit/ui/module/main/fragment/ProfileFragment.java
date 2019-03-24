@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.andrewtse.kfgit.KFGitApplication;
 import com.andrewtse.kfgit.R;
+import com.andrewtse.kfgit.common.utils.GlideUtils;
 import com.andrewtse.kfgit.common.utils.StringUtils;
 import com.andrewtse.kfgit.contract.ILoginContract;
 import com.andrewtse.kfgit.data.pref.UserPref;
@@ -22,8 +23,6 @@ import com.andrewtse.kfgit.presenter.LoginPresenter;
 import com.andrewtse.kfgit.ui.adapter.ProfileFragmentAdapter;
 import com.andrewtse.kfgit.ui.base.BaseFragment;
 import com.andrewtse.kfgit.ui.entity.ProfileItem;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -141,7 +140,7 @@ public class ProfileFragment extends BaseFragment implements ILoginContract.ILog
 
     private void loadHeaderData() {
         User userInfo = UserPref.getLoginUser(this.getContext());
-        Glide.with(this).asBitmap().load(userInfo.getAvatarUrl()).diskCacheStrategy(DiskCacheStrategy.ALL).into(mIvAvatar);
+        GlideUtils.loadImg(getContext(), userInfo.getAvatarUrl(), mIvAvatar);
         mTvUserName.setText(userInfo.getLogin());
         mTvUserDescription.setText(userInfo.getBio());
         mTvJoinDate.setText(getString(R.string.joined_at) + " " + userInfo.getCreatedAt().substring(0, 10));
