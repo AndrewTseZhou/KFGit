@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import com.andrewtse.kfgit.KFGitApplication;
 import com.andrewtse.kfgit.R;
+import com.andrewtse.kfgit.common.utils.ActivityUtils;
+import com.andrewtse.kfgit.common.utils.ClickUtils;
 import com.andrewtse.kfgit.contract.IStarredContract;
 import com.andrewtse.kfgit.data.pref.UserPref;
 import com.andrewtse.kfgit.di.IHasComponent;
@@ -15,10 +17,12 @@ import com.andrewtse.kfgit.di.component.DaggerIRepoComponent;
 import com.andrewtse.kfgit.di.component.IRepoComponent;
 import com.andrewtse.kfgit.di.module.ActivityModule;
 import com.andrewtse.kfgit.di.module.RepoModule;
+import com.andrewtse.kfgit.model.BaseRepoModel;
 import com.andrewtse.kfgit.model.StarredModel;
 import com.andrewtse.kfgit.presenter.StarredPresenter;
 import com.andrewtse.kfgit.ui.adapter.StarredFragmentAdapter;
 import com.andrewtse.kfgit.ui.base.BaseFragment;
+import com.andrewtse.kfgit.ui.module.repo.RepoDetailInfoActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ethanhua.skeleton.RecyclerViewSkeletonScreen;
 import com.ethanhua.skeleton.Skeleton;
@@ -52,7 +56,7 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
 
     private int mPage = 1;
     private boolean mIsLoadingMore = false;
-    private final int mPerPage = 10;
+    private final int mPerPage = 8;
     private RecyclerViewSkeletonScreen mSkeletonScreen;
 
     public static StarredFragment newInstance() {
@@ -108,9 +112,7 @@ public class StarredFragment extends BaseFragment implements IStarredContract.IS
 
     private void initAdapter() {
         mAdapter = new StarredFragmentAdapter(R.layout.item_starred, null);
-        mAdapter.setOnItemClickListener((adapter, view, position) -> {
-
-        });
+        mAdapter.setOnItemClickListener(ClickUtils::handleBaseRepoClick);
         //上滑加载
         mAdapter.setEnableLoadMore(true);
         mAdapter.setOnLoadMoreListener(() -> {

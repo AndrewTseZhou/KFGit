@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.andrewtse.kfgit.KFGitApplication;
 import com.andrewtse.kfgit.R;
+import com.andrewtse.kfgit.common.utils.ClickUtils;
 import com.andrewtse.kfgit.common.utils.KeyboardUtils;
 import com.andrewtse.kfgit.contract.ISearchContract;
 import com.andrewtse.kfgit.data.net.datasource.RepoDataSource;
@@ -137,13 +138,13 @@ public class SearchFragment extends BaseFragment implements ISearchContract.ISea
 
         mRvSearchList.setLayoutManager(new LinearLayoutManager(getActivity()));
         mLoadAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_loading);
+        mLoadAnimation.setRepeatMode(Animation.RESTART);
+        mLoadAnimation.setRepeatCount(Animation.INFINITE);
     }
 
     private void initAdapter() {
         mAdapter = new SearchFragmentAdapter(R.layout.item_search, null);
-        mAdapter.setOnItemClickListener((adapter, view, position) -> {
-
-        });
+        mAdapter.setOnItemClickListener(ClickUtils::handleBaseRepoClick);
 
         mAdapter.setUpFetchEnable(false);
         mAdapter.setEnableLoadMore(true);
@@ -174,7 +175,7 @@ public class SearchFragment extends BaseFragment implements ISearchContract.ISea
 
     @Override
     public void dismissLoading() {
-        mLoading.setVisibility(View.INVISIBLE);
+        mLoading.setVisibility(View.GONE);
         mLoading.clearAnimation();
     }
 

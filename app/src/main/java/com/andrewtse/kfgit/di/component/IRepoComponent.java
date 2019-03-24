@@ -6,6 +6,7 @@ import com.andrewtse.kfgit.di.module.RepoModule;
 import com.andrewtse.kfgit.ui.module.main.fragment.SearchFragment;
 import com.andrewtse.kfgit.ui.module.main.fragment.StarredFragment;
 import com.andrewtse.kfgit.ui.module.main.fragment.TrendingFragment;
+import com.andrewtse.kfgit.ui.module.repo.RepoDetailInfoActivity;
 
 import dagger.Component;
 
@@ -22,4 +23,6 @@ public interface IRepoComponent extends IActivityComponent {
     void inject(SearchFragment fragment);
 
     void inject(StarredFragment fragment);
+
+    void inject(RepoDetailInfoActivity activity);
 }

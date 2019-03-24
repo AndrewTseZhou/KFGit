@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.andrewtse.kfgit.KFGitApplication;
 import com.andrewtse.kfgit.R;
+import com.andrewtse.kfgit.common.utils.ActivityUtils;
+import com.andrewtse.kfgit.common.utils.ClickUtils;
 import com.andrewtse.kfgit.contract.ITrendingContract;
 import com.andrewtse.kfgit.di.IHasComponent;
 import com.andrewtse.kfgit.di.component.DaggerIRepoComponent;
@@ -19,6 +21,7 @@ import com.andrewtse.kfgit.model.TrendingModel;
 import com.andrewtse.kfgit.presenter.TrendingPresenter;
 import com.andrewtse.kfgit.ui.adapter.TrendingFragmentAdapter;
 import com.andrewtse.kfgit.ui.base.BaseFragment;
+import com.andrewtse.kfgit.ui.module.repo.RepoDetailInfoActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ethanhua.skeleton.RecyclerViewSkeletonScreen;
 import com.ethanhua.skeleton.Skeleton;
@@ -125,9 +128,7 @@ public class TrendingFragment extends BaseFragment implements ITrendingContract.
 
     private void initAdapter() {
         mAdapter = new TrendingFragmentAdapter(R.layout.item_trending, null);
-        mAdapter.setOnItemClickListener((adapter, view, position) -> {
-
-        });
+        mAdapter.setOnItemClickListener(ClickUtils::handleTrendingRepoClick);
 
         mAdapter.setEnableLoadMore(true);
         mAdapter.setOnLoadMoreListener(() -> {

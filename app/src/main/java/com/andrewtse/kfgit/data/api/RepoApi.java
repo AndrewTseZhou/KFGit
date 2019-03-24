@@ -1,6 +1,7 @@
 package com.andrewtse.kfgit.data.api;
 
 import com.andrewtse.kfgit.data.net.response.SearchResp;
+import com.andrewtse.kfgit.model.RepoDetailInfoModel;
 import com.andrewtse.kfgit.model.StarredModel;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface RepoApi {
     Observable<SearchResp> getSearchResult(String q, int page, int perPage, int type);
 
     Observable<List<StarredModel>> loadMyStarred(String token, int page, int perPage);
+
+    Observable<RepoDetailInfoModel> getRepoDetailInfo(String owner, String repo);
 }

@@ -7,6 +7,7 @@ import com.andrewtse.kfgit.data.net.client.RepoRetrofit;
 import com.andrewtse.kfgit.data.net.client.StarredRetrofit;
 import com.andrewtse.kfgit.data.net.interf.ReposInterface;
 import com.andrewtse.kfgit.data.net.response.SearchResp;
+import com.andrewtse.kfgit.model.RepoDetailInfoModel;
 import com.andrewtse.kfgit.model.StarredModel;
 
 import java.util.List;
@@ -58,5 +59,11 @@ public class RepoDataSource implements RepoApi {
         mStarredRetrofit.setQueryParams(token, page);
         ReposInterface starredInterface = mStarredRetrofit.get().create(ReposInterface.class);
         return starredInterface.getMyStarred(page, perPage);
+    }
+
+    @Override
+    public Observable<RepoDetailInfoModel> getRepoDetailInfo(String owner, String repo) {
+        ReposInterface repoInfoInterface = mRetrofit.get().create(ReposInterface.class);
+        return repoInfoInterface.getRepoDetailInfo(owner, repo);
     }
 }
