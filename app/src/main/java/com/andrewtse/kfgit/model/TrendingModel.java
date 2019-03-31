@@ -13,8 +13,8 @@ public class TrendingModel implements ITrendingContract.ITrendingModel {
     private String mTrend;
     private String mColor;
     private String mLanguage;
-    private String mStarredCount;
-    private String mForksCount;
+    private int mStarredCount;
+    private int mForksCount;
     private boolean mIsStarred;
     private boolean mIsFork;
 
@@ -58,20 +58,30 @@ public class TrendingModel implements ITrendingContract.ITrendingModel {
         mLanguage = language;
     }
 
-    public String getStarredCount() {
+    public int getStarredCount() {
         return mStarredCount;
     }
 
     public void setStarredCount(String starredCount) {
-        mStarredCount = starredCount;
+        if (starredCount.contains(",")) {
+            String strCount = starredCount.replace(",", "");
+            mStarredCount = Integer.valueOf(strCount);
+        } else {
+            mStarredCount = Integer.valueOf(starredCount);
+        }
     }
 
-    public String getForksCount() {
+    public int getForksCount() {
         return mForksCount;
     }
 
     public void setForksCount(String forksCount) {
-        mForksCount = forksCount;
+        if (forksCount.contains(",")) {
+            String strCount = forksCount.replace(",", "");
+            mForksCount = Integer.valueOf(strCount);
+        } else {
+            mForksCount = Integer.valueOf(forksCount);
+        }
     }
 
     public boolean isStarred() {

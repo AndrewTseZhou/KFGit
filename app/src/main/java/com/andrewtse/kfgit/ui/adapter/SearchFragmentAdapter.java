@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import com.andrewtse.kfgit.R;
 import com.andrewtse.kfgit.common.utils.GlideUtils;
+import com.andrewtse.kfgit.common.utils.StringUtils;
 import com.andrewtse.kfgit.model.SearchModel;
 import com.andrewtse.kfgit.ui.holder.CustomViewHolder;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -40,7 +41,7 @@ public class SearchFragmentAdapter extends BaseQuickAdapter<SearchModel, CustomV
               .setText(R.id.tv_description, item.getDescription())
               .setText(R.id.tv_license_name, item.getLicense() != null ? item.getLicense().getName() : "None")
               .setText(R.id.tv_language, !TextUtils.isEmpty(item.getLanguage()) ? item.getLanguage() : "Unknown")
-              .setText(R.id.tv_starred_count, String.valueOf(item.getStargazersCount()))
-              .setText(R.id.tv_forks_count, String.valueOf(item.getForksCount()));
+              .setText(R.id.tv_starred_count, StringUtils.getCount(item.getStargazersCount()))
+              .setText(R.id.tv_forks_count, StringUtils.getCount(item.getForksCount()));
     }
 }

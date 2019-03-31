@@ -3,6 +3,7 @@ package com.andrewtse.kfgit.ui.adapter;
 import android.graphics.Color;
 
 import com.andrewtse.kfgit.R;
+import com.andrewtse.kfgit.common.utils.StringUtils;
 import com.andrewtse.kfgit.model.TrendingModel;
 import com.andrewtse.kfgit.ui.holder.CustomViewHolder;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -38,7 +39,7 @@ public class TrendingFragmentAdapter extends BaseQuickAdapter<TrendingModel, Cus
               .setText(R.id.tv_trend, item.getTrend())
               .setBackgroundColor(R.id.iv_language_type_color, Color.parseColor(item.getColor()))
               .setText(R.id.tv_language, item.getLanguage())
-              .setText(R.id.tv_starred_count, item.getStarredCount())
-              .setText(R.id.tv_forks_count, item.getForksCount());
+              .setText(R.id.tv_starred_count, StringUtils.getCount(item.getStarredCount()))
+              .setText(R.id.tv_forks_count, StringUtils.getCount(item.getForksCount()));
     }
 }

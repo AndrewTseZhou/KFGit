@@ -252,4 +252,18 @@ public final class StringUtils {
             return new String[0];
         }
     }
+
+    /**
+     * 处理star、fork等数字
+     *
+     * @param count
+     * @return
+     */
+    public static String getCount(int count) {
+        if (count >= 1000) {
+            return String.format("%.1f", count / 1000f) + "k";
+        } else {
+            return String.valueOf(count);
+        }
+    }
 }
