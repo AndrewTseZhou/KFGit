@@ -14,6 +14,13 @@ public class BasePresenterImpl<V extends IBaseContract.IBaseView> implements IBa
 
     protected CompositeDisposable mCompositeDisposable;
 
+    // 网络重试最大次数
+    int mMaxConnectCount = 5;
+    // 当前已重试次数
+    int mCurrentRetryCount = 0;
+    // 重试等待时间
+    int mWaitRetryTime = 0;
+
     @Override
     public void attachView(V baseView) {
         mBaseView = baseView;

@@ -1,6 +1,5 @@
 package com.andrewtse.kfgit.presenter;
 
-import android.app.Application;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -13,15 +12,19 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -39,6 +42,23 @@ public class TrendingPresenter extends BaseRepoPresenter<ITrendingContract.ITren
 
     public void getTrendingRepo(String languageType, String q) {
         mRepoApi.getTrendingRepo(languageType, q)
+                .retryWhen(throwableObservable -> throwableObservable.flatMap((Function<Throwable, ObservableSource<?>>) throwable -> {
+                    Log.d(TAG, "apply: throwable: " + throwable.toString());
+                    if (throwable instanceof IOException) {
+                        if (mCurrentRetryCount < mMaxConnectCount) {
+                            mCurrentRetryCount++;
+                            mWaitRetryTime = 1000 + mCurrentRetryCount * 1000;
+                            Log.d(TAG, "apply: mCurrentRetryCount = " + mCurrentRetryCount + ", mWaitRetryTime = " + mWaitRetryTime);
+                            return Observable.just(1).delay(mWaitRetryTime, TimeUnit.MILLISECONDS);
+                        } else {
+                            Log.d(TAG, "apply: 重试次数已超过设置次数");
+                            return Observable.error(new Throwable("开小差了"));
+                        }
+                    } else {
+                        Log.d(TAG, "apply: 发生了非IO异常");
+                        return Observable.error(new Throwable("开小差了"));
+                    }
+                }))
                 .throttleFirst(3, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
